@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graduate Salary Bar Plot</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2>Mean Salary by Major</h2>
+
+<label for="major">Select Major:</label>
+<select id="major">
+    {% for m in majors %}
+        <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+</select>
+
+<p id="nodata" style="color:red; display:none;">
+    No salary data available for this major.
+</p>
+
+<canvas id="scatterChart" width="600" height="400"></canvas>
+
+<script>
+    const ctx = document.getElementById('scatterChart').getContext('2d');
+    let chart;
+
+    async function updateChart() {
+        const major = document.getElementById("major").value;
+        const res = await fetch(`/data?major=${major}`);
+        const data = await res.json();
+
+        document.getElementById("nodata").style.display =
+            data.years.length === 0 ? "block" : "none";
+
+        const years = data.years;
+        const salaries = data.salaries;
+
+        if (chart) chart.destroy();
+
+        chart = new Chart(ctx, {
+            type: 'bar',   // ✅ changed from scatter → bar
+            data: {
+                labels: years,  // x axis
+                datasets: [{
+                    label: `Mean Salary - ${major}`,
+                    data: salaries,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: { 
+                        title: { text: "Year", display: true },
+                        ticks: { autoSkip: false }   // ✅ show every year
+                    },
+                    y: { 
+                        title: { text: "Mean Salary", display: true },
+                        ticks: {
+                            callback: function(value) {
+                                return value.toString();  // ✅ remove thousand commas
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    document.getElementById("major").addEventListener("change", updateChart);
+
+    updateChart();
+</script>
+
+</body>
+</html>
