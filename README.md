@@ -2,7 +2,7 @@
 
 ## Problem: What problem are you solving, and for whom?
 
-The problem I am solving is that I want to be able to clearly visualize the mean salary for each major from this graduates.csv dataset. This would solve a problem for college boards that are trying to see how successful each major is and how profitable each major has proven to be over time.
+The problem I am solving is that I want to be able to clearly visualize the mean salary for each major from this graduates.csv dataset. This would solve a problem for college boards that are trying to see how successful each major is and how profitable each major has proven to be over time. In addition, this would prove useful to students who are curious about the mean salaries for various majors, so if a major they were interested in pays very little, they could at least be aware of that when they declare their major.
 
 ## Solution: One paragraph, non-technical overview of your project.
 
@@ -12,7 +12,7 @@ I created a webpage that will display a bar graph of the mean salary of each maj
 
 ## Course Concept(s): Name the specific module concept/tool you used
 
-I worked based on Case 3 where we used bash and the command line interface to find specific data within a dataset. However, I took the case one step further by both finding the data inside the dataset, and then visualizing it with a front end index.html file and a back end app.py file. In addition, it uses a Flask API to connect the front end to the back end, as well as create a webpage in general.
+I worked based on Case 4 and 5 with Flask API where we create a backend app.py file and a frontend index.html file and connect them using Flask. I created get requests in the app.py file to pull the dataset and then pull the mean salary for each major based on the dropdown that was outlined in the index.html file. In addition, I encased both files and the dataset within a Dockerfile so that they could be run in a container, making the project more portable.
 
 ## Architecture Diagram: Include a PNG in /assets and embed it here
 
